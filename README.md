@@ -13,6 +13,10 @@ Ensure you have the required libraries installed. You can install them using pip
 
 (or polars if you choose to use it instead of pandas)
 
+If you don't have the connector run the follow command 
+
+pip install mysql-connector-python
+
 Step 2: Connect to MySQL Database
 
 Use SQLAlchemy to connect to your MySQL database and fetch the data you want to transform. Replace the placeholders in the code below with your actual database connection details:
