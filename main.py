@@ -15,6 +15,6 @@ if __name__ == '__main__':
     # mongodb+srv://pymongo:<password>@
     instance_mongodob = MongoDBConnection(domain='cluster0.2nj1fc2.mongodb.net/?retryWrites=true&w=majority',
                                           user='pymongo',
-                                          passwd='o8ZkWJedxOywwtt4')
+                                          passwd='senha')
 
     conn = instance_mongodob.client().db
