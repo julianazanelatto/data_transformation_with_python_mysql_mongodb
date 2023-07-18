@@ -9,6 +9,7 @@ Step 1: Set up the Environment
 Ensure you have the required libraries installed. You can install them using pip:
 
     pip install SQLAlchemy pymongo pandas
+    pip install pymysql
 
 (or polars if you choose to use it instead of pandas)
 
