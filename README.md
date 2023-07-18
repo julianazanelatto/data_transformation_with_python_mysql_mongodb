@@ -1,4 +1,4 @@
-# Data Transformation With Python Mysql Mongodb Database
+  # Data Transformation With Python Mysql Mongodb Database
 This repository is related to a data transformation class. In this particular class, we going to build a code with these steps: Step 1: collect data from MySQL; Step 2: transforma the data; Step 3: Ingest the data into the new model with MongoDB Database
 
 
@@ -15,7 +15,7 @@ Ensure you have the required libraries installed. You can install them using pip
 
 If you don't have the connector run the follow command 
 
-pip install mysql-connector-python
+    > pip install mysql-connector-python
 
 Step 2: Connect to MySQL Database
 
@@ -48,6 +48,10 @@ Use PyMongo to establish a connection to your MongoDB server. Replace the placeh
     client = MongoClient('mongodb://user:password@host:port/')
     db = client['your_database_name']  # Replace 'your_database_name' with your desired database name
     collection = db['your_collection_name']  # Replace 'your_collection_name' with your desired collection name
+
+To be able to connect to the MongoDB Database on Atlas you need to install another package: "pymongo[srv]"
+
+    > python3.10 -m pip install "pymongo[srv]"
 
 Step 5: Data Ingestion into MongoDB
 
