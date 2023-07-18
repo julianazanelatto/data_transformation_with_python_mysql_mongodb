@@ -26,7 +26,10 @@ class MySQLConnection:
                                      self.host, ':', str(self.port), '/', self.database])
         # 'mysql://user:password@host:port/database'
         self.engine = create_engine(connection_string)
-
+        try:
+            self.engine.connect()
+        except ConnectionError():
+            raise 'Error during the connection'
     """
         Estabelecendo métodos de consulta:
         
