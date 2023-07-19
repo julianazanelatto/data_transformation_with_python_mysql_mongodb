@@ -7,12 +7,11 @@ class MongoDBConnection:
         self.host = domain
         self.user = user
         self.passwd = passwd
-        self.client = None
 
     def connecting(self):
         # mongodb+srv://pymongo:<password>@cluster0.2nj1fc2.mongodb.net/?retryWrites=true&w=majority
         connection_string = ''.join(['mongodb+srv://',self.user,':',self.passwd,'@',self.host])
-        self.client = MongoClient(connection_string)
+        return MongoClient(connection_string)
 
 
 

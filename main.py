@@ -1,20 +1,42 @@
-from Extract.connecting_mysql import MySQLConnection
-from Load.connecting_mongodb import MongoDBConnection
-from sqlalchemy import inspect
+from Extract.mysql_connection import MySQLConnection
+from Load.mongodb_connection import MongoDBConnection
+from sqlalchemy import inspect, text
+from Tranformation.documents_creation import transformig_data, inserting_data_posts
 
 if __name__ == '__main__':
 
     instance_mysql = MySQLConnection(user='root',
                                      passwd='mknj0912!',
-                                     database='employees')
+                                     database='classicmodels')
     instance_mysql.set_mysql_engine()
-    inspector_engine = inspect(instance_mysql.engine)
+    engine = instance_mysql.engine
 
-    # connecting to the mongodb
+    query = (
+        "SELECT o.orderNumber AS 'id_order', \
+                c.customerNumber AS 'id_customer',\
+                o.orderDate AS 'order_date',\
+                o.status,\
+                p.productCode AS 'Id_product', \
+                p.productName AS 'Name',\
+                p.productLine AS 'Category',\
+                od.quantityOrdered AS 'quantity',\
+                od.priceEach AS 'price',\
+                c.city,\
+                c.state,\
+                c.country\
+            FROM orders o\
+                INNER JOIN orderdetails od ON o.orderNumber = od.orderNumber\
+                INNER  JOIN products p ON od.productCode = p.productCode\
+                INNER JOIN customers c ON c.customerNumber = o.customerNumber\
+            ORDER BY o.orderNumber;"\
+    )
+    sql_query = text(query)
+    result = engine.execute(sql_query) # .fetchall() #lista de tuplas
 
-    # mongodb+srv://pymongo:<password>@
-    instance_mongodob = MongoDBConnection(domain='cluster0.2nj1fc2.mongodb.net/?retryWrites=true&w=majority',
-                                          user='pymongo',
-                                          passwd='senha')
+    #starts the transformation
+    posts = transformig_data(data= result.mappings().all()) #sending a dict
+    # inserting_data_posts(posts)
 
-    conn = instance_mongodob.client().db
+
+
+
