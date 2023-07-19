@@ -1,10 +1,18 @@
   # Data Transformation With Python Mysql Mongodb Database
 This repository is related to a data transformation class. In this particular class, we going to build a code with these steps: Step 1: collect data from MySQL; Step 2: transforma the data; Step 3: Ingest the data into the new model with MongoDB Database
 
+For this particular project we gonna use a sample of mysqlututorial.org named as classicmodels. You can dowload this sample from [here](https://www.mysqltutorial.org/mysql-sample-database.aspx) or from this repository. With this samples in hands, you will restore the database using the follow command:
 
-Project: RDBMS to MongoDB Data Transformation
+  > mysql -u <user> -p -t < mysqlsampledatabase.sql
 
-Step 1: Set up the Environment
+Therefore, you will be able to query the data using SQL.
+
+OK, kepping going ... In the following steps we gonna understand the purpose of this project.
+
+
+## Project: RDBMS to MongoDB Data Transformation
+
+### Step 1: Set up the Environment
 
 Ensure you have the required libraries installed. You can install them using pip:
 
@@ -17,7 +25,7 @@ If you don't have the connector run the follow command
 
     > pip install mysql-connector-python
 
-Step 2: Connect to MySQL Database
+### Step 2: Connect to MySQL Database
 
 Use SQLAlchemy to connect to your MySQL database and fetch the data you want to transform. Replace the placeholders in the code below with your actual database connection details:
 
@@ -29,7 +37,7 @@ Use SQLAlchemy to connect to your MySQL database and fetch the data you want to 
     # Example query to fetch data from a table called 'your_table_name'
     data = pd.read_sql_query('SELECT * FROM your_table_name', engine)
 
-Step 3: Data Transformation
+### Step 3: Data Transformation and Modeling
 
 Perform any necessary data transformation using pandas or polars (depending on your choice). This might include cleaning, filtering, aggregating, or any other manipulation required to prepare the data for MongoDB insertion.
 
@@ -38,7 +46,7 @@ Perform any necessary data transformation using pandas or polars (depending on y
     # data = data.dropna()  # Drop rows with missing values
     # data['new_column'] = data['old_column'] * 2  # Add a new column
 
-Step 4: Connect to MongoDB
+### Step 4: Connect to MongoDB
 
 Use PyMongo to establish a connection to your MongoDB server. Replace the placeholders in the code below with your MongoDB connection details:
 
@@ -53,7 +61,8 @@ To be able to connect to the MongoDB Database on Atlas you need to install anoth
 
     > python3.10 -m pip install "pymongo[srv]"
 
-Step 5: Data Ingestion into MongoDB
+
+### Step 5: Data Ingestion into MongoDB
 
 Iterate over the transformed data and insert it into MongoDB:
 
@@ -62,7 +71,7 @@ Iterate over the transformed data and insert it into MongoDB:
         document = row.to_dict()
         collection.insert_one(document)
 
-Step 6: Complete the Script
+### Step 6: Complete the Script
 
 Put everything together into a Python script, and you have your data engineering project ready to go. You can run the script whenever you need to transfer data from MySQL to MongoDB.
 
