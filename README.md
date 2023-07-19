@@ -1,9 +1,14 @@
   # Data Transformation With Python Mysql Mongodb Database
 This repository is related to a data transformation class. In this particular class, we going to build a code with these steps: Step 1: collect data from MySQL; Step 2: transforma the data; Step 3: Ingest the data into the new model with MongoDB Database
 
-For this particular project we gonna use a sample of mysqlututorial.org named as classicmodels. You can dowload this sample from [here](https://www.mysqltutorial.org/mysql-sample-database.aspx) or from this repository.
+For this particular project we gonna use a sample of mysqlututorial.org named as classicmodels. You can dowload this sample from [here](https://www.mysqltutorial.org/mysql-sample-database.aspx) or from this repository. With this samples in hands, you will restore the database using the follow command:
 
-In the following steps we gonna understand the purpose of this project.
+  > mysql -u <user> -p -t < mysqlsampledatabase.sql
+
+Therefore, you will be able to query the data using SQL.
+
+OK, kepping going ... In the following steps we gonna understand the purpose of this project.
+
 
 ## Project: RDBMS to MongoDB Data Transformation
 
