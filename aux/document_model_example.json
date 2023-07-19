@@ -7,12 +7,15 @@
                 "state": "",
                 "country": ""
             },
-    "products":{
-                "id_product": 123,
-                "name": "",
-                "category": "",
-                "price": 12.1
-            },
+    "products": [
+                {
+                    "id_product": 123,
+                    "name": "",
+                    "category": "",
+                    "price": 12.1
+                },
+                {}
+             ],
     "order_date": "",
     "order_status": ""
 }
