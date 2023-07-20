@@ -1,7 +1,8 @@
 from Extract.mysql_connection import MySQLConnection
 from Load.mongodb_connection import MongoDBConnection
 from sqlalchemy import inspect, text
-from Tranformation.documents_creation import transformig_data, inserting_data_posts
+from Tranformation.data_transformation import transformig_data
+from Tranformation.ingestion import inserting_data_posts
 
 if __name__ == '__main__':
 
@@ -16,9 +17,9 @@ if __name__ == '__main__':
                 c.customerNumber AS 'id_customer',\
                 o.orderDate AS 'order_date',\
                 o.status,\
-                p.productCode AS 'Id_product', \
-                p.productName AS 'Name',\
-                p.productLine AS 'Category',\
+                p.productCode AS 'id_product', \
+                p.productName AS 'name',\
+                p.productLine AS 'category',\
                 od.quantityOrdered AS 'quantity',\
                 od.priceEach AS 'price',\
                 c.city,\
@@ -35,6 +36,7 @@ if __name__ == '__main__':
 
     #starts the transformation
     posts = transformig_data(data= result.mappings().all()) #sending a dict
+    print(len(posts))
     # inserting_data_posts(posts)
 
 
