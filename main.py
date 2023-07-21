@@ -1,12 +1,11 @@
-import json
-
-from Extract.mysql_connection import MySQLConnection
-from Load.mongodb_connection import MongoDBConnection
+"""
+    This project is related to a ETL processing. The goal in here is collect the data from a
+    RDBMs
+"""
 from sqlalchemy import text
-from Tranformation.data_transformation import transformig_data
-from Extract.mysql_connection import QUERY
-from bson.codec_options import TypeRegistry, CodecOptions
-from bson.binary import Binary
+from Extract.mysql_connection import MySQLConnection, QUERY
+from Load.mongodb_connection import MongoDBConnection
+from Tranformation.data_transformation import transforming_data
 
 if __name__ == '__main__':
 
@@ -23,20 +22,22 @@ if __name__ == '__main__':
 
     # ----------- Step 2 (Transform): Data Transformation -------------
 
-    posts = transformig_data(data = query_result.mappings().all()) # sending a dict
+    posts = transforming_data(data = query_result.mappings().all()) # sending a dict
     print('Total de docs:',len(posts))
 
-    # ----------- Step 3 (Load): Connection and data insertion into MongoDB -----------
+    # ------ Step 3 (Load): Connection and data insertion into MongoDB ---
 
-    instance_mongodb = MongoDBConnection(domain='cluster0.2nj1fc2.mongodb.net/?retryWrites=true&w=majority',
-                                          user='pymongo',
-                                          passwd='o8ZkWJedxOywwtt4')
+    instance_mongodb = MongoDBConnection(
+                            domain='cluster0.2nj1fc2.mongodb.net/?retryWrites=true&w=majority',
+                            user='pymongo',
+                            passwd='o8ZkWJedxOywwtt4'
+                        )
 
     client = instance_mongodb.connecting()
     # db = client['dio_analytics']
     # type_registry = TypeRegistry(Binary)
     # codec_options = CodecOptions(type_registry=type_registry)
-    db = client.get_database('dio_analytics') #, codec_options=codec_options)  # if doesn't exists will be created
+    db = client.get_database('dio_analytics')
 
     print('Coleções:\n',db.list_collection_names())
     # posts_collection = db.get_collection('orders').find()
@@ -44,8 +45,5 @@ if __name__ == '__main__':
     collection = db.get_collection('orders')
     for doc in posts:
         print(doc)
-        result = collection.insert_one(json.dump(doc))
+        result = collection.insert_one(doc)
         print(result.inserted_id)
-
-
-

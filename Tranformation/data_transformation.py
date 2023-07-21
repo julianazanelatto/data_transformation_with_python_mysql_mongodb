@@ -4,12 +4,14 @@
     :return posts
 """
 import pandas as pd
-import datetime
 
 
-
-def transformig_data(data):
-
+def transforming_data(data):
+    """
+        Transformation of the data from tabular to document format
+    :param data: dict with the tabular data
+    :return: dict based in json document format
+    """
     #creating a dict
     dict_df = {}
     for element in data:
@@ -42,10 +44,15 @@ def transformig_data(data):
 
 
 def document_creation(sub_df, index):
-
+    """
+        Document creation function
+    :param sub_df: dataframe subset
+    :param index: data position in the dataframe
+    :return:
+    """
     documents = {
-        "id_pedido": int(sub_df['id_order'][index]),
-        "id_customer": int(sub_df['id_customer'][index]),
+        "id_pedido": (sub_df['id_order'][index]).item(),
+        "id_customer": (sub_df['id_customer'][index]).item(),
         "local": {
             "city": sub_df['city'][index],
             "state": sub_df['state'][index],
@@ -58,8 +65,8 @@ def document_creation(sub_df, index):
                 "id_product": sub_df['id_product'][index],
                 "name": sub_df['name'][index],
                 "category": sub_df['id_product'][index],
-                "quantity": sub_df['quantity'][index],
-                "price": sub_df['price'][index]
+                "quantity": (sub_df['quantity'][index]).item(),
+                "price": float(sub_df['price'][index])
             }
         ],
     }
@@ -67,13 +74,20 @@ def document_creation(sub_df, index):
     return documents
 
 def  appending_doc_data(documents, sub_df, index):
+    """
+        Suport function for the orginal function: document_creation()
+    :param documents: dict with the json document format
+    :param sub_df: dataframe subset
+    :param index: data position
+    :return: data appended to the dict
+    """
     # adiciona os demais produtos
     documents['products'].append(
         {
             "id_product": sub_df['id_product'][index],
             "name": sub_df['name'][index],
             "category": sub_df['id_product'][index],
-            "quantity": sub_df['quantity'][index],
-            "price": sub_df['price'][index]
+            "quantity": (sub_df['quantity'][index]).item(),
+            "price": float(sub_df['price'][index])
         }
     )
