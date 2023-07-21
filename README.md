@@ -46,13 +46,23 @@ In this particular project we gonna use the [PyMySQL](https://pypi.org/project/p
 
 Use SQLAlchemy to connect to your MySQL database and fetch the data you want to transform. Replace the placeholders in the code below with your actual database connection details:
 
+    # Connection String used 
+    # Replace 'mysql+pymysql://user:password@host:port/database' with your MySQL connection string
+
+Bellow you gonna find the connection method that is related to the MySQLConnection class in the code. You will find this piece of code into the mysql_connection.py. 
+
     from sqlalchemy import create_engine
+    def set_mysql_engine(self):
 
-    # Replace 'mysql://user:password@host:port/database' with your MySQL connection string
-    engine = create_engine('mysql://user:password@host:port/database')
+    connection_string = ''.join(['mysql+pymysql://', self.user, ':', self.passwd, '@',
+                                 self.host, ':', str(self.port), '/', self.database])
+    # 'mysql://user:password@host:port/database'
+    self.engine = create_engine(connection_string)
+    try:
+        self.engine.connect()
+    except ConnectionError():
+        raise 'Error during the connection'
 
-    # Example query to fetch data from a table called 'your_table_name'
-    data = pd.read_sql_query('SELECT * FROM your_table_name', engine)
 
 ### Step 3: Data Transformation and Modeling
 
