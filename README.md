@@ -78,3 +78,7 @@ Put everything together into a Python script, and you have your data engineering
 Remember to handle any potential errors, add logging, and optimize the code based on the scale of your data.
 
 Please note that the provided steps are just a basic outline, and you can expand the project according to your specific requirements and the complexity of your data transformation needs. Happy coding!
+
+Others sources:
+- https://pymongo.readthedocs.io/en/stable/api/bson/index.html
+- https://pymongo.readthedocs.io/en/stable/tutorial.html#
