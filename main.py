@@ -1,10 +1,12 @@
 from Extract.mysql_connection import MySQLConnection
 from Load.mongodb_connection import MongoDBConnection
-from sqlalchemy import inspect, text
+from sqlalchemy import text
 from Tranformation.data_transformation import transformig_data
-from Tranformation.ingestion import inserting_data_posts
+from Extract.mysql_connection import QUERY
 
 if __name__ == '__main__':
+
+    # ----------- Step 1 (Extract): Connecting and retrieving the data ------------
 
     instance_mysql = MySQLConnection(user='root',
                                      passwd='mknj0912!',
@@ -12,32 +14,31 @@ if __name__ == '__main__':
     instance_mysql.set_mysql_engine()
     engine = instance_mysql.engine
 
-    query = (
-        "SELECT o.orderNumber AS 'id_order', \
-                c.customerNumber AS 'id_customer',\
-                o.orderDate AS 'order_date',\
-                o.status,\
-                p.productCode AS 'id_product', \
-                p.productName AS 'name',\
-                p.productLine AS 'category',\
-                od.quantityOrdered AS 'quantity',\
-                od.priceEach AS 'price',\
-                c.city,\
-                c.state,\
-                c.country\
-            FROM orders o\
-                INNER JOIN orderdetails od ON o.orderNumber = od.orderNumber\
-                INNER  JOIN products p ON od.productCode = p.productCode\
-                INNER JOIN customers c ON c.customerNumber = o.customerNumber\
-            ORDER BY o.orderNumber;"\
-    )
-    sql_query = text(query)
-    result = engine.execute(sql_query) # .fetchall() #lista de tuplas
+    sql_query = text(QUERY)
+    query_result = engine.execute(sql_query) # .fetchall() #l ista de tuplas
 
-    #starts the transformation
-    posts = transformig_data(data= result.mappings().all()) #sending a dict
-    print(len(posts))
-    # inserting_data_posts(posts)
+    # ----------- Step 2 (Transform): Data Transformation -------------
+
+    posts = transformig_data(data = query_result.mappings().all()) # sending a dict
+    print('Total de docs:',len(posts))
+
+    # ----------- Step 3 (Load): Connection and data insertion into MongoDB -----------
+
+    instance_mongodb = MongoDBConnection(domain='cluster0.2nj1fc2.mongodb.net/?retryWrites=true&w=majority',
+                                          user='pymongo',
+                                          passwd='o8ZkWJedxOywwtt4')
+
+    client = instance_mongodb.connecting()
+    # db = client['dio_analytics']
+    db = client.get_database('dio_analytics')  # if doesn't exists will be created
+
+    print('Coleções:\n',db.list_collection_names())
+    # posts_collection = db.get_collection('orders').find()
+
+    collection = db.get_collection('orders')
+    for doc in posts:
+        result = collection.insert_one(doc)
+        print(result.inserted_id)
 
 
 

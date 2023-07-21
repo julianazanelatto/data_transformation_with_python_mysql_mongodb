@@ -40,3 +40,24 @@ class MySQLConnection:
     """
 
 # Funções de apoio
+
+
+QUERY = query = (
+        "SELECT o.orderNumber AS 'id_order', \
+                c.customerNumber AS 'id_customer',\
+                o.orderDate AS 'order_date',\
+                o.status,\
+                p.productCode AS 'id_product', \
+                p.productName AS 'name',\
+                p.productLine AS 'category',\
+                od.quantityOrdered AS 'quantity',\
+                od.priceEach AS 'price',\
+                c.city,\
+                c.state,\
+                c.country\
+            FROM orders o\
+                INNER JOIN orderdetails od ON o.orderNumber = od.orderNumber\
+                INNER  JOIN products p ON od.productCode = p.productCode\
+                INNER JOIN customers c ON c.customerNumber = o.customerNumber\
+            ORDER BY o.orderNumber;"\
+    )
