@@ -1,8 +1,12 @@
+import json
+
 from Extract.mysql_connection import MySQLConnection
 from Load.mongodb_connection import MongoDBConnection
 from sqlalchemy import text
 from Tranformation.data_transformation import transformig_data
 from Extract.mysql_connection import QUERY
+from bson.codec_options import TypeRegistry, CodecOptions
+from bson.binary import Binary
 
 if __name__ == '__main__':
 
@@ -30,14 +34,17 @@ if __name__ == '__main__':
 
     client = instance_mongodb.connecting()
     # db = client['dio_analytics']
-    db = client.get_database('dio_analytics')  # if doesn't exists will be created
+    # type_registry = TypeRegistry(Binary)
+    # codec_options = CodecOptions(type_registry=type_registry)
+    db = client.get_database('dio_analytics') #, codec_options=codec_options)  # if doesn't exists will be created
 
     print('Coleções:\n',db.list_collection_names())
     # posts_collection = db.get_collection('orders').find()
 
     collection = db.get_collection('orders')
     for doc in posts:
-        result = collection.insert_one(doc)
+        print(doc)
+        result = collection.insert_one(json.dump(doc))
         print(result.inserted_id)
 
 

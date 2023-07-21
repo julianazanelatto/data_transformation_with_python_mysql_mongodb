@@ -7,6 +7,7 @@ import pandas as pd
 import datetime
 
 
+
 def transformig_data(data):
 
     #creating a dict
@@ -54,11 +55,11 @@ def document_creation(sub_df, index):
         "order_status": sub_df['status'][index],
         "products": [
             {
-                "id_product": str(sub_df['id_product'][index]),
+                "id_product": sub_df['id_product'][index],
                 "name": sub_df['name'][index],
                 "category": sub_df['id_product'][index],
-                "quantity": int(sub_df['quantity'][index]),
-                "price": float(sub_df['price'][index])
+                "quantity": sub_df['quantity'][index],
+                "price": sub_df['price'][index]
             }
         ],
     }
