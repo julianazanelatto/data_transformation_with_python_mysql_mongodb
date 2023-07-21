@@ -3,10 +3,10 @@
 This repository is related to a data ETL for DIO class called acelleration. In this particular class, we going to build a code with three steps: Step 1: collect data from MySQL; Step 2: transforma the data; Step 3: Ingest the data into the new model with MongoDB Database.
 
 To understand more about Relational and NoSQL databases, you can access the following links:
-1. (SQL or NoSQL - Portuguese youtube video)[https://youtu.be/o8i2KZiIW4Y]
-2. (Youtube Playlist about databases)[https://youtube.com/playlist?list=PLigQ9zMmlIqK38m2kShipMoquEcasoWKZ]
-3. (SQL from scratch - Youtube Playlist in progress)[https://youtube.com/playlist?list=PLigQ9zMmlIqIc2xi1Sg902zCscNndIvDp]
-4. (Tutorials in my site - SR)[https://simplificandoredes.com/]
+1. [SQL or NoSQL - Portuguese youtube video](https://youtu.be/o8i2KZiIW4Y)
+3. [Youtube Playlist about databases][https://youtube.com/playlist?list=PLigQ9zMmlIqK38m2kShipMoquEcasoWKZ]
+4. [SQL from scratch - Youtube Playlist in progress][https://youtube.com/playlist?list=PLigQ9zMmlIqIc2xi1Sg902zCscNndIvDp]
+5. [Tutorials in my site - SR][https://simplificandoredes.com/]
 
 For this particular project we gonna use a sample of mysqlututorial.org named as classicmodels. You can download this sample from [here](https://www.mysqltutorial.org/mysql-sample-database.aspx) or from this repository. With this samples in hands, you will restore the database using the follow command:
 
