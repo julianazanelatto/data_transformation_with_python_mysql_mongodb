@@ -1,5 +1,6 @@
   # Data Transformation With Python Mysql Mongodb Database
-This repository is related to a data transformation class. In this particular class, we going to build a code with these steps: Step 1: collect data from MySQL; Step 2: transforma the data; Step 3: Ingest the data into the new model with MongoDB Database
+
+This repository is related to a data ETL for DIO class called acelleration. In this particular class, we going to build a code with these steps: Step 1: collect data from MySQL; Step 2: transforma the data; Step 3: Ingest the data into the new model with MongoDB Database
 
 For this particular project we gonna use a sample of mysqlututorial.org named as classicmodels. You can dowload this sample from [here](https://www.mysqltutorial.org/mysql-sample-database.aspx) or from this repository. With this samples in hands, you will restore the database using the follow command:
 
@@ -9,6 +10,15 @@ Therefore, you will be able to query the data using SQL.
 
 OK, kepping going ... In the following steps we gonna understand the purpose of this project.
 
+Some of the prerequisites are:
+1. MySQL local installed or an instance on cloud
+2. MongoDB local installed or an instance on cloud
+3. Python 3.10 installed
+
+### Project scenario:
+
+For this project I have a MySQL sever 8.0 installed on my ubuntu machine. However, for the NoSQL step I used the MongoDB Database on MongoDB Atlas. Therefore, the code will reflect the configurations accordingly to the previus definition. An IDE can be of your choose, I particulary enjoy the Pycharm IDE.
+
 
 ## Project: RDBMS to MongoDB Data Transformation
 
@@ -17,13 +27,14 @@ OK, kepping going ... In the following steps we gonna understand the purpose of 
 Ensure you have the required libraries installed. You can install them using pip:
 
     pip install SQLAlchemy pymongo pandas
-    pip install pymysql
 
 (or polars if you choose to use it instead of pandas)
 
-If you don't have the connector run the follow command 
+If you don't have the connector run the follow command:
 
-    > pip install mysql-connector-python
+    > pip install pymysql
+
+In this particular project we gonna use the [PyMySQL](https://pypi.org/project/pymysql/) driver.However there are others that you can use. Feel free to modify for a driver of your own choose.
 
 ### Step 2: Connect to MySQL Database
 
