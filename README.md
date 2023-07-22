@@ -1,5 +1,7 @@
   # Data Transformation With Python Mysql Mongodb Database
 
+## Project: RDBMS to MongoDB Data Transformation
+
 This repository is related to a data ETL for DIO class called acelleration. In this particular class, we going to build a code with three steps: Step 1: collect data from MySQL; Step 2: transforma the data; Step 3: Ingest the data into the new model with MongoDB Database.
 
 To understand more about Relational and NoSQL databases, you can access the following links:
@@ -26,7 +28,7 @@ Some of the prerequisites are:
 For this project I have a MySQL sever 8.0 installed on my ubuntu machine. However, for the NoSQL step I used the MongoDB Database on MongoDB Atlas. Therefore, the code will reflect the configurations accordingly to the previus definition. An IDE can be of your choose, I particulary enjoy the Pycharm IDE.
 
 
-## Project: RDBMS to MongoDB Data Transformation
+## ETL Processing - Extract Step
 
 ### Step 1: Set up the Environment
 
@@ -63,15 +65,23 @@ Bellow you gonna find the connection method that is related to the MySQLConnecti
     except ConnectionError():
         raise 'Error during the connection'
 
+## ETL Processing - Transformation Step
 
 ### Step 3: Data Transformation and Modeling
 
 Perform any necessary data transformation using pandas or polars (depending on your choice). This might include cleaning, filtering, aggregating, or any other manipulation required to prepare the data for MongoDB insertion.
 
-    # Your data transformation steps here
-    # For example:
-    # data = data.dropna()  # Drop rows with missing values
-    # data['new_column'] = data['old_column'] * 2  # Add a new column
+    def transforming_data(data):
+    """
+        Transformation of the data from tabular to document format
+    :param data: dict with the tabular data
+    :return: dict based in json document format
+
+      1° step: receive the data and convert into a dataframe
+      2° step: retrive the dataframe subset based on the context data
+      3° step: build the new model - document oriented
+    
+    """
 
 ### Step 4: Connect to MongoDB
 
