@@ -135,9 +135,12 @@ Iterate over the transformed data and insert it into MongoDB. First create the d
     for doc in posts:
         result = collection.insert_one(doc)
         print(result.inserted_id)
-### Step 6: Complete the Script
+        
+### Step 6: Done!
 
-Put everything together into a Python script, and you have your data engineering project ready to go. You can run the script whenever you need to transfer data from MySQL to MongoDB.
+Put everything together into a Python script, and you have your data engineering project ready to go. You can run the script whenever you need to transfer data from MySQL to MongoDB. 
+
+Now, you can access the MongoDB Atlas and visualize tha data the you just inserted into the NoSQL Database
 
 Remember to handle any potential errors, add logging, and optimize the code based on the scale of your data.
 
