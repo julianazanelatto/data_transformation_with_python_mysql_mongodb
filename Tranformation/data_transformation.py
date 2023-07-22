@@ -12,10 +12,6 @@ def transforming_data(data):
     :param data: dict with the tabular data
     :return: dict based in json document format
     """
-    #creating a dict
-    dict_df = {}
-    for element in data:
-        dict_df.update(element)
 
     df = pd.DataFrame.from_dict(data)
     ids = []

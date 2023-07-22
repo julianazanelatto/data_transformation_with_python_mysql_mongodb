@@ -18,7 +18,10 @@ if __name__ == '__main__':
     engine = instance_mysql.engine
 
     sql_query = text(QUERY)
-    query_result = engine.execute(sql_query) # .fetchall() #l ista de tuplas
+    query_result = engine.execute(sql_query) # .fetchall() #l ista de tuplas3
+
+    print("Closing the MySQL connection!")
+    engine.dispose()
 
     # ----------- Step 2 (Transform): Data Transformation -------------
 
@@ -35,15 +38,13 @@ if __name__ == '__main__':
 
     client = instance_mongodb.connecting()
     # db = client['dio_analytics']
-    # type_registry = TypeRegistry(Binary)
-    # codec_options = CodecOptions(type_registry=type_registry)
     db = client.get_database('dio_analytics')
-
     print('Coleções:\n',db.list_collection_names())
-    # posts_collection = db.get_collection('orders').find()
 
     collection = db.get_collection('orders')
     for doc in posts:
-        print(doc)
         result = collection.insert_one(doc)
         print(result.inserted_id)
+
+    print("Closing the MongoDB connection!")
+    client.close()

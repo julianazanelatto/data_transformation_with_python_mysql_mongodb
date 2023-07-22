@@ -30,16 +30,6 @@ class MySQLConnection:
             self.engine.connect()
         except ConnectionError():
             raise 'Error during the connection'
-    """
-        Estabelecendo métodos de consulta:
-        
-        1 - Listagem das tabelas
-        2 - Escolha de tabela
-        3 - Execução de consulta a uma tabela
-        4 - Junção entre tabelas
-    """
-
-# Funções de apoio
 
 
 QUERY = query = (
