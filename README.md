@@ -28,7 +28,7 @@ Some of the prerequisites are:
 For this project I have a MySQL sever 8.0 installed on my ubuntu machine. However, for the NoSQL step I used the MongoDB Database on MongoDB Atlas. Therefore, the code will reflect the configurations accordingly to the previus definition. An IDE can be of your choose, I particulary enjoy the Pycharm IDE.
 
 
-## ETL Processing - Extract Step
+## ETL Processing - Extract Stage
 
 ### Step 1: Set up the Environment
 
@@ -43,6 +43,10 @@ If you don't have the connector run the follow command:
     > pip install pymysql
 
 In this particular project we gonna use the [PyMySQL](https://pypi.org/project/pymysql/) driver.However there are others that you can use. Feel free to modify for a driver of your own choose.
+
+For the last stage, and to be able to connect to the MongoDB Database on Atlas you need to install another package: "pymongo[srv]"
+
+    > python3.10 -m pip install "pymongo[srv]"
 
 ### Step 2: Connect to MySQL Database
 
@@ -65,13 +69,14 @@ Bellow you gonna find the connection method that is related to the MySQLConnecti
     except ConnectionError():
         raise 'Error during the connection'
 
-## ETL Processing - Transformation Step
+## ETL Processing - Transformation Stage
 
 ### Step 3: Data Transformation and Modeling
 
 Perform any necessary data transformation using pandas or polars (depending on your choice). This might include cleaning, filtering, aggregating, or any other manipulation required to prepare the data for MongoDB insertion.
 
     def transforming_data(data):
+    
     """
         Transformation of the data from tabular to document format
     :param data: dict with the tabular data
@@ -80,19 +85,37 @@ Perform any necessary data transformation using pandas or polars (depending on y
       1° step: receive the data and convert into a dataframe
       2° step: retrive the dataframe subset based on the context data
       3° step: build the new model - document oriented
+      4° step: return the document
     
     """
+
+Programming code: data_transformation.py
+
+## ETL Processing - Load Stage
 
 ### Step 4: Connect to MongoDB
 
 Use PyMongo to establish a connection to your MongoDB server. Replace the placeholders in the code below with your MongoDB connection details:
 
     from pymongo import MongoClient
+    """
+      General template
+    """
 
     # Replace 'mongodb://user:password@host:port/' with your MongoDB connection string
     client = MongoClient('mongodb://user:password@host:port/')
     db = client['your_database_name']  # Replace 'your_database_name' with your desired database name
     collection = db['your_collection_name']  # Replace 'your_collection_name' with your desired collection name
+
+In this project the connection is storage into a class method, like the code bellow:
+
+      # P.S: We gonna use the srv driver for the connection
+
+      def connecting(self):
+        # mongodb+srv://pymongo:<password>@cluster0.2nj1fc2.mongodb.net/?retryWrites=true&w=majority
+        
+        connection_string = ''.join(['mongodb+srv://',self.user,':',self.passwd,'@',self.domain])
+        return MongoClient(connection_string)
 
 To be able to connect to the MongoDB Database on Atlas you need to install another package: "pymongo[srv]"
 
@@ -101,13 +124,17 @@ To be able to connect to the MongoDB Database on Atlas you need to install anoth
 
 ### Step 5: Data Ingestion into MongoDB
 
-Iterate over the transformed data and insert it into MongoDB:
+Iterate over the transformed data and insert it into MongoDB. First create the dataase and the collection that will store the data documents.
 
+    client = instance_mongodb.connecting()
+    db = client.get_database('dio_analytics')
+    print('Coleções:\n',db.list_collection_names())
+    
     # Assuming your transformed data is stored in the 'data' DataFrame
-    for index, row in data.iterrows():
-        document = row.to_dict()
-        collection.insert_one(document)
-
+    collection = db.get_collection('orders')
+    for doc in posts:
+        result = collection.insert_one(doc)
+        print(result.inserted_id)
 ### Step 6: Complete the Script
 
 Put everything together into a Python script, and you have your data engineering project ready to go. You can run the script whenever you need to transfer data from MySQL to MongoDB.
