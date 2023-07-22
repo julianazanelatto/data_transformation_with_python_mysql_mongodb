@@ -12,7 +12,7 @@ if __name__ == '__main__':
     # ----------- Step 1 (Extract): Connecting and retrieving the data ------------
 
     instance_mysql = MySQLConnection(user='root',
-                                     passwd='mknj0912!',
+                                     passwd='senha',
                                      database='classicmodels')
     instance_mysql.set_mysql_engine()
     engine = instance_mysql.engine
@@ -33,7 +33,7 @@ if __name__ == '__main__':
     instance_mongodb = MongoDBConnection(
                             domain='cluster0.2nj1fc2.mongodb.net/?retryWrites=true&w=majority',
                             user='pymongo',
-                            passwd='o8ZkWJedxOywwtt4'
+                            passwd='chave'
                         )
 
     client = instance_mongodb.connecting()
